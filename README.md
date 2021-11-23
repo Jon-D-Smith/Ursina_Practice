@@ -1,2 +1,6 @@
 # Ursina_Practice
-Trying out the Ursina framework
+Practicing with the Ursina Framework
+
+## Features used
+- Movement on all axis
+- Jumping
