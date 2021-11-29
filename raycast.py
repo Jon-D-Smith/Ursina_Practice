@@ -4,16 +4,25 @@ app = Ursina()
 
 class Player(Entity):
 
-    def input(key, value):
-        if value == "space":
-            print("Jump")
+    def input(player, value):
+        if value == "space" and player.jump_count < 2:
+            player.jump_count += 1
+            player.position += Vec3(0,player.jump_force,0) * 5 * time.dt
+
 
     def update(self):
         self.jump_count = 0
+        self.jump_force = 30
+        self.gravity =  -2.5
+
+        if self.position.y > 0:
+            self.position += Vec3(0,self.gravity,0) * 5 * time.dt
+
         self.direction = Vec3(
             self.forward * (held_keys['w'] - held_keys['s'])
             + self.right * (held_keys['d'] - held_keys['a'])
             ).normalized()  # get the direction we're trying to walk in.
+
         camera.x = self.position.x
         camera.z = self.position.z - 20
         camera.rotation_x = mouse.position.x
