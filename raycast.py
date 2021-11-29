@@ -4,7 +4,12 @@ app = Ursina()
 
 class Player(Entity):
 
+    def input(key, value):
+        if value == "space":
+            print("Jump")
+
     def update(self):
+        self.jump_count = 0
         self.direction = Vec3(
             self.forward * (held_keys['w'] - held_keys['s'])
             + self.right * (held_keys['d'] - held_keys['a'])
@@ -16,6 +21,9 @@ class Player(Entity):
         hit_info = raycast(origin , self.direction, ignore=(self,), distance=.5, debug=False)
         if not hit_info.hit:
             self.position += self.direction * 5 * time.dt
+       
+    
+                
 
 Player(model='cube', origin_y=-.5, color=color.orange)
 wall_left = Entity(model='cube', collider='box', scale_y=3, origin_y=-.5, color=color.azure, x=-4)
