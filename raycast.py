@@ -6,17 +6,21 @@ class Player(Entity):
 
     def input(player, value):
         if value == "space" and player.jump_count < 2:
-            player.jump_count += 1
-            player.position += Vec3(0,player.jump_force,0) * 5 * time.dt
+            player.position += Vec3(0,player.jump_force,0) 
+        
 
 
     def update(self):
         self.jump_count = 0
         self.jump_force = 30
-        self.gravity =  -2.5
+        self.gravity =  0.05
+        self.mass = 50
+        self.speed = 5
 
-        if self.position.y > 0:
-            self.position += Vec3(0,self.gravity,0) * 5 * time.dt
+
+        if self.position.y <= 0:
+            self.position.y = 0
+        self.position *= Vec3(1,self.gravity,1)
 
         self.direction = Vec3(
             self.forward * (held_keys['w'] - held_keys['s'])
@@ -29,9 +33,9 @@ class Player(Entity):
         origin = self.world_position + (self.up*.5) # the ray should start slightly up from the ground so we can walk up slopes or walk over small objects.
         hit_info = raycast(origin , self.direction, ignore=(self,), distance=.5, debug=False)
         if not hit_info.hit:
-            self.position += self.direction * 5 * time.dt
-       
-    
+            self.position += self.direction * self.speed * time.dt
+
+                
                 
 
 Player(model='cube', origin_y=-.5, color=color.orange)
