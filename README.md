@@ -5,7 +5,7 @@ Practicing with the Ursina Framework
 - Movement on all axis
 - Jumping
 
-##Pros
+## Pros
 - Easy to setup basic movement in a 3d space
 - reload code in real time without relaunching the game browser
 
